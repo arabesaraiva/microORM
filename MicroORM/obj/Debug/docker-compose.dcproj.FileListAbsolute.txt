@@ -1,0 +1,13 @@
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\appsettings.Development.json
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\appsettings.json
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Properties\launchSettings.json
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.Samples.exe
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.Samples.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.Data.SqlClient.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.Samples.pdb
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.pdb
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\docker-compose.dcprojAssemblyReference.cache
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\docker-compose.dcproj.CopyComplete

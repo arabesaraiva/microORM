@@ -1,0 +1,8 @@
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\netcoreapp3.1\MicroORM.deps.json
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\netcoreapp3.1\MicroORM.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\netcoreapp3.1\MicroORM.pdb
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.csproj.CoreCompileInputs.cache
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.AssemblyInfoInputs.cache
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.AssemblyInfo.cs
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.dll
+C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.pdb

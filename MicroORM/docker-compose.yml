@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  microorm.samples:
+    image: ${DOCKER_REGISTRY-}microormsamples
+    build:
+      context: .
+      dockerfile: ../MicroORM.Samples/Dockerfile
+    environment:
+     DefaultConnString: "Server=db;Database=MicroORM_Sample;User=sa;Password=MicroORM123;"
+    depends_on:
+     - db
+     - migration
+  migration:
+   build:
+    context: ..
+    dockerfile: InitializeDB/Dockerfile
+   environment:
+    SA_USER: "sa"
+    SA_PASSWORD: "MicroORM123"
+   depends_on:
+    - db
+  db:
+   image: "mcr.microsoft.com/mssql/server"
+   environment:
+    SA_PASSWORD: "MicroORM123"
+    ACCEPT_EULA: "Y"
+    MSSQL_PID: "Developer"
+   ports:
+    - "1434:1433"
