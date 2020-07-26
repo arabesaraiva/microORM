@@ -35,7 +35,6 @@ namespace MicroORM.Samples.Controllers
             return new JsonResult(selectResult);
         }
 
-
         private class clientIdAndNameModel
         {
             [JsonIgnore()]
@@ -111,7 +110,6 @@ namespace MicroORM.Samples.Controllers
             }
         }
 
-
         /// <summary>
         /// Use any kind of select command, from simple to complex queries and get the results as a <see cref="System.Data.DataTable"/>
         /// </summary>
@@ -127,6 +125,27 @@ namespace MicroORM.Samples.Controllers
             return new JsonResult(datatable.Select().Select(r => datatable.Columns.Cast<DataColumn>().Select(c => new { Field = c.ColumnName, Value = r[c.ColumnName] })));
         }
 
+        /// <summary>
+        /// Select with Top, optionally ordering by some field(s)
+        /// </summary>
+        [HttpGet("Top1")]
+        public JsonResult GetTop1()
+        {
+            var selectResult = microOrm.Select<Client>().Top(1, c => c.LastBuyDate, c => c.ID).Execute();
+
+            return new JsonResult(selectResult);
+        }
+
+        /// <summary>
+        /// Select with Top, optionally ordering by some field(s)
+        /// </summary>
+        [HttpGet("Page/{page}")]
+        public JsonResult GetPage(int page)
+        {
+            var selectResult = microOrm.Select<Client>().Page(1 * Math.Max(page - 1, 0), 1, c => c.LastBuyDate, c => c.ID).Execute();
+
+            return new JsonResult(selectResult);
+        }
 
         #endregion
 
@@ -179,6 +198,17 @@ namespace MicroORM.Samples.Controllers
         }
 
         /// <summary>
+        /// Filter with the 'IN' operator
+        /// </summary>
+        [HttpGet("ActiveAndInactive")]
+        public JsonResult GetActiveAndInactive()
+        {
+            var selectResult = microOrm.Select<Client>().WhereIn(c => c.IsActive, new bool[2] { true, false }).Execute();
+
+            return new JsonResult(selectResult);
+        }
+
+        /// <summary>
         /// Filter by more than one condition
         /// </summary>
         [HttpGet("BuyedLast10YearsAndActive")]
@@ -208,8 +238,89 @@ namespace MicroORM.Samples.Controllers
 
         #endregion
 
+        #region Exists, Count
 
+        /// <summary>
+        /// Check if a record exists easily and with good performance
+        /// </summary>
+        [HttpGet("Exists/{id}")]
+        public JsonResult Exists(int id)
+        {
+            var existsResult = microOrm.Exists<Client>().Where(c => c.ID, id).Execute();
 
+            return new JsonResult(existsResult);
+        }
+
+        /// <summary>
+        /// Count the records with any conditions
+        /// </summary>
+        [HttpGet("Count")]
+        public JsonResult Count()
+        {
+            var countResult = microOrm.Count<Client>().Where(c => c.IsActive, true).Execute();
+
+            return new JsonResult(countResult);
+        }
+
+        #endregion
+
+        #region Updates
+
+        /// <summary>
+        /// Update a record setting all the model's property values
+        /// </summary>
+        [HttpGet("Update/{id}")]
+        public JsonResult Update(int id, [FromQuery()]string name = "")
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new JsonResult("Set the new name!");
+
+            var selectResult = microOrm.Select<Client>().Where(c => c.ID, id).Execute();
+            if (!selectResult.Success)
+                return new JsonResult(selectResult);
+
+            var model = selectResult.DataList?.FirstOrDefault();
+
+            if (model == null)
+                return new JsonResult("ID not found!");
+
+            model.Name = name;
+
+            var changeResult = microOrm.Change<Client>().Update(model).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        /// <summary>
+        /// Update a specific field filtering by the ID, without needing to select the model first
+        /// </summary>
+        [HttpGet("UpdateSpecificField/{id}")]
+        public JsonResult UpdateSpecificField(int id, [FromQuery()]string name = "")
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new JsonResult("Set the new name!");
+
+            var changeCommand = microOrm.Change<Client>();
+
+            var changeResult = changeCommand.UpdateSpecificFields(id, changeCommand.Set(c => c.Name, name)).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        /// <summary>
+        /// Update a specific field with a condition, without needing to select the model first
+        /// </summary>
+        [HttpGet("UpdateName/{currentName}")]
+        public JsonResult UpdateName(string currentName, [FromQuery()]string newName = "")
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+                return new JsonResult("Set the new name!");
+
+            var changeResult = microOrm.UpdateWhere<Client>().Set(c => c.Name, newName).Where(c => c.Name, currentName).Execute();
+            return new JsonResult(changeResult);
+        }
+
+        #endregion
 
 
 

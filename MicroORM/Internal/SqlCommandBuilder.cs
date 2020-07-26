@@ -96,7 +96,7 @@ namespace MicroORM.Core
             if (includeComma)
                 builder.Append(", ");
 
-            string paramName = $"@p_{Guid.NewGuid().ToString()}";
+            string paramName = $"@p_{MicroORM.Internal.Utils.GetUniqueId()}";
 
             builder.Append($"[{currentProperty.Name}] = {paramName}");
 
@@ -218,7 +218,7 @@ namespace MicroORM.Core
 
                 if (currentProperty == pkProperty) continue;
 
-                string paramName = $"@p_{Guid.NewGuid().ToString()}";
+                string paramName = $"@p_{MicroORM.Internal.Utils.GetUniqueId()}";
                 parameters.Add(new Tuple<string, object, Type>(paramName, specificField.GetValue(), currentProperty.PropertyType));
 
                 builder.Append($", {paramName}");
@@ -309,7 +309,7 @@ namespace MicroORM.Core
                 if (i > 0)
                     builder.Append(", ");
 
-                string paramName = $"@p_{Guid.NewGuid().ToString()}";
+                string paramName = $"@p_{MicroORM.Internal.Utils.GetUniqueId()}";
 
                 builder.Append(paramName);
 

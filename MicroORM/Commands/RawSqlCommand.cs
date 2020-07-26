@@ -158,7 +158,7 @@ namespace MicroORM.Commands
                     throw new Exception("Invalid command for a temporary table creation.");
 
                 if (String.IsNullOrWhiteSpace(tableName))
-                    tableName = $"##temp_{Guid.NewGuid().ToString()}";
+                    tableName = $"##temp_{MicroORM.Internal.Utils.GetUniqueId()}";
                 else if (!tableName.StartsWith("#"))
                     tableName = tableName.Insert(0, "#");
 

@@ -161,7 +161,7 @@ namespace MicroORM.Commands
         public SelectCommand<T, TResult> ToTemporaryTable(string tempTableName)
         {
             if (String.IsNullOrWhiteSpace(tempTableName))
-                tempTableName = $"##temp_{Guid.NewGuid().ToString()}";
+                tempTableName = $"##temp_{MicroORM.Internal.Utils.GetUniqueId()}";
             else if (!tempTableName.StartsWith("#"))
                 tempTableName = tempTableName.Insert(0, "#");
 

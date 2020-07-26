@@ -125,7 +125,7 @@ namespace MicroORM.Commands
 
                 string tableName = this._tableName;
                 if (String.IsNullOrWhiteSpace(tableName))
-                    tableName = $"##temp_{Guid.NewGuid().ToString()}";
+                    tableName = $"##temp_{MicroORM.Internal.Utils.GetUniqueId()}";
 
                 if (!tableName.StartsWith("#"))
                     throw new Exception("The temporary table's name must starts with #.");

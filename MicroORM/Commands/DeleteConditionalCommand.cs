@@ -38,11 +38,8 @@ namespace MicroORM.Commands
 
             var sqlParameters = getWhereParameters();
 
-            object commandResult = null;
-
-            commandResult = conn.ExecuteScalarCommand(commandBuilder.ToString(), getTimeout(),  sqlParameters);
-
-            return new ChangeResult() { DeletedCount = 1 };
+            int commandResult = conn.ExecuteCommand(commandBuilder.ToString(), getTimeout(), sqlParameters);
+            return new ChangeResult() { DeletedCount = commandResult, AffectedCount = commandResult };
         }
 
     }

@@ -249,6 +249,8 @@ namespace MicroORM.Commands
 
             var hadTransaction = conn.HasTransaction();
 
+            int changedCount = 0;
+
             try
             {
                 if (!hadTransaction)
@@ -334,7 +336,7 @@ namespace MicroORM.Commands
 
                 }
 
-                executeCommands(commands, conn);
+                changedCount = executeCommands(commands, conn);
 
                 if (!hadTransaction)
                 {
@@ -358,7 +360,8 @@ namespace MicroORM.Commands
             {
                 InsertedCount = insertList.Count,
                 DeletedCount = deleteList.Count,
-                UpdatedCount = updateList.Count
+                UpdatedCount = updateList.Count,
+                AffectedCount = changedCount
             };
 
         }
@@ -383,8 +386,8 @@ namespace MicroORM.Commands
                                PK = c.PKValue
                            }).ToArray();
 
-            string changesTypeTempTableName = $"##tbChangesType_{Guid.NewGuid().ToString()}";
-            string changesModelTempTableName = $"##tbChangesModel_{Guid.NewGuid().ToString()}";
+            string changesTypeTempTableName = $"##tbChangesType_{MicroORM.Internal.Utils.GetUniqueId()}";
+            string changesModelTempTableName = $"##tbChangesModel_{MicroORM.Internal.Utils.GetUniqueId()}";
 
             using (var changesTypeTempTableCommand = _factory.TemporaryTable<tempChangeTableDTO>().SetTableName(changesTypeTempTableName))
             {
@@ -445,10 +448,12 @@ namespace MicroORM.Commands
 
         }
 
-        private void executeCommands(List<ParameterCommand> commands, SQLDatabaseConnection conn)
+        private int executeCommands(List<ParameterCommand> commands, SQLDatabaseConnection conn)
         {
             if (commands.Count <= 0)
-                return;
+                return 0;
+
+            int changedCount = 0;
 
             saveLog();
 
@@ -482,17 +487,19 @@ namespace MicroORM.Commands
 
                 try
                 {
-                    conn.ExecuteCommand(nextCommandsSql, 60, nextParameters);
+                    changedCount += conn.ExecuteCommand(nextCommandsSql, 60, nextParameters);
                 }
                 catch (Exception ex)
                 {
-                    var fullException = new Exception("Ocorreu um erro na execução de um comando no banco de dados.", ex);
+                    var fullException = new Exception("Something went wrong with in the execution of a database command.", ex);
                     fullException.Data.Add(nameof(nextCommandsSql), nextCommandsSql);
                     throw fullException;
                 }
 
                 executed += nextCommands.Count;
             }
+
+            return changedCount;
         }
 
         public List<ChangeLogItemDTO> ListCurrentChanges()

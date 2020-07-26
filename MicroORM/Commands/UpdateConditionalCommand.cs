@@ -70,13 +70,11 @@ namespace MicroORM.Commands
             if (additionalParameters.Count > 0)
                 sqlParameters = sqlParameters.Concat(additionalParameters).ToArray();
 
-            object commandResult = null;
-
-            commandResult = conn.ExecuteScalarCommand(builder.ToString(), getTimeout(), sqlParameters);
+            int commandResult = conn.ExecuteCommand(builder.ToString(), getTimeout(), sqlParameters);
 
             ResetChanges();
 
-            return new ChangeResult() { UpdatedCount = 1 };
+            return new ChangeResult() { UpdatedCount = commandResult, AffectedCount = commandResult };
         }
 
     }

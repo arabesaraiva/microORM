@@ -107,8 +107,6 @@ C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\runtimes\
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\MicroORM.dll
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\MicroORM.pdb
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.csprojAssemblyReference.cache
-C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.csproj.CoreCompileInputs.cache
-C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.MvcApplicationPartsAssemblyInfo.cache
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.AssemblyInfoInputs.cache
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.AssemblyInfo.cs
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.RazorTargetAssemblyInfo.cache
@@ -118,3 +116,8 @@ C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\staticweb
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.dll
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.pdb
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.genruntimeconfig.cache
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.csproj.CoreCompileInputs.cache
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.MvcApplicationPartsAssemblyInfo.cache

@@ -138,7 +138,7 @@ namespace MicroORM.Commands
 
             _insertDataTable.Clear();
 
-            return new ChangeResult() { InsertedCount = insertedCount };
+            return new ChangeResult() { InsertedCount = insertedCount, AffectedCount = insertedCount };
         }
 
     }
