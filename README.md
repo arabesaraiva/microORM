@@ -1,4 +1,9 @@
 # microORM
+[![NuGet version (AS.MicroORM)](https://img.shields.io/nuget/v/AS.MicroORM.svg?style=flat-square)](https://www.nuget.org/packages/AS.MicroORM/)
+---
+Install-Package AS.MicroORM
+---
+
 A .NET micro ORM created from scratch with an ASP.NET Core API with Docker support for demonstration
 
 Please, use the MicroORM.Samples API project as a tutorial about how to use the MicroORM.
