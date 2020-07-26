@@ -4,7 +4,7 @@
 Install-Package AS.MicroORM
 ---
 
-A .NET micro ORM created from scratch with an ASP.NET Core API with Docker support for demonstration
+A .NET micro ORM for SQL Server created from scratch with an ASP.NET Core API with Docker support for demonstration
 
 Please, use the MicroORM.Samples API project as a tutorial about how to use the MicroORM.
 
