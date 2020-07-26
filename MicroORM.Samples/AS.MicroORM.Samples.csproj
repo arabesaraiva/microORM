@@ -5,10 +5,11 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\MicroORM</DockerfileContext>
     <DockerComposeProjectPath>..\MicroORM\docker-compose.dcproj</DockerComposeProjectPath>
+    <AssemblyName>AS.MicroORM.Samples</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Source\Workspaces\MicroORM\MicroORM.Samples\MicroORM.Samples.xml</DocumentationFile>
+    <DocumentationFile>C:\Source\Workspaces\MicroORM\MicroORM.Samples\AS.MicroORM.Samples.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MicroORM\MicroORM.csproj" />
+    <ProjectReference Include="..\MicroORM\AS.MicroORM.csproj" />
   </ItemGroup>
 
 

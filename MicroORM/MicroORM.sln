@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroORM", "MicroORM.csproj", "{8B34B833-33E5-40BA-BACF-185E75887905}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS.MicroORM", "AS.MicroORM.csproj", "{8B34B833-33E5-40BA-BACF-185E75887905}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroORM.Samples", "..\MicroORM.Samples\MicroORM.Samples.csproj", "{682BAA37-0DF4-472A-B98B-A2BD220F2F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS.MicroORM.Samples", "..\MicroORM.Samples\AS.MicroORM.Samples.csproj", "{682BAA37-0DF4-472A-B98B-A2BD220F2F08}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EF472CCF-33EE-42CC-8107-7B4389E837EF}"
 EndProject

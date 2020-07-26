@@ -11,6 +11,8 @@
     <RepositoryUrl>https://github.com/arabesaraiva/microORM</RepositoryUrl>
     <PackageTags>ORM, Micro ORM, DAL</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyName>AS.MicroORM</AssemblyName>
+    <RootNamespace>AS.MicroORM</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
