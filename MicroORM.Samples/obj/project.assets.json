@@ -2525,7 +2525,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "MicroORM/1.0.0": {
+      "AS.MicroORM/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -2533,10 +2533,10 @@
           "microsoft.data.sqlclient": "2.0.0"
         },
         "compile": {
-          "bin/placeholder/MicroORM.dll": {}
+          "bin/placeholder/AS.MicroORM.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MicroORM.dll": {}
+          "bin/placeholder/AS.MicroORM.dll": {}
         }
       }
     }
@@ -8274,7 +8274,7 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "MicroORM/1.0.0": {
+    "AS.MicroORM/1.0.0": {
       "type": "project",
       "path": "../MicroORM/MicroORM.csproj",
       "msbuildProject": "../MicroORM/MicroORM.csproj"
@@ -8282,7 +8282,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "MicroORM >= 1.0.0",
+      "AS.MicroORM >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.6",
       "Microsoft.Extensions.PlatformAbstractions >= 1.1.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.8",

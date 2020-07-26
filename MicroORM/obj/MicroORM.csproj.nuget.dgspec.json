@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Source\\Workspaces\\MicroORM\\MicroORM\\MicroORM.csproj",
-        "projectName": "MicroORM",
+        "projectName": "AS.MicroORM",
         "projectPath": "C:\\Source\\Workspaces\\MicroORM\\MicroORM\\MicroORM.csproj",
         "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
         "outputPath": "C:\\Source\\Workspaces\\MicroORM\\MicroORM\\obj\\",

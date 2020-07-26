@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>AS.MicroORM</PackageId>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>André Árabe Saraiva</Authors>
+    <Company>Árabe Saraiva</Company>
+    <Description>A .NET micro ORM created from scratch</Description>
+    <PackageProjectUrl>https://github.com/arabesaraiva/microORM</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/arabesaraiva/microORM</RepositoryUrl>
+    <PackageTags>ORM, Micro ORM, DAL</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

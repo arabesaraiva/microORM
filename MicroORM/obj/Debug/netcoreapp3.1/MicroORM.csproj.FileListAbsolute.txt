@@ -6,4 +6,3 @@ C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.Assembly
 C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.AssemblyInfo.cs
 C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.dll
 C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.pdb
-C:\Source\Workspaces\MicroORM\MicroORM\obj\Debug\netcoreapp3.1\MicroORM.csprojAssemblyReference.cache
