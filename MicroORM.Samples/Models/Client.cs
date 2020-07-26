@@ -8,7 +8,7 @@ namespace MicroORM.Samples.Models
 {
     public class Client
     {
-        [Key()]
+        [Key(), System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [MaxLength(50)]

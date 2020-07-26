@@ -119,5 +119,12 @@ C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.csproj.CoreCompileInputs.cache
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.MvcApplicationPartsAssemblyInfo.cs
 C:\Source\Workspaces\MicroORM\MicroORM.Samples\obj\Debug\netcoreapp3.1\MicroORM.Samples.MvcApplicationPartsAssemblyInfo.cache
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\MicroORM.Samples.xml
+C:\Source\Workspaces\MicroORM\MicroORM.Samples\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace MicroORM.Core
 
                 else return value.ToString();
             }
-            
+
             if (propertyType.IsDateTimeType())
                 return value == null ? DBNull.Value : (object)((DateTime)value);
 
@@ -183,7 +184,7 @@ namespace MicroORM.Core
             return new ParameterCommand(builder.ToString(), parameters);
         }
 
-        internal static ParameterCommand GetInsertCommand<T>(object pkValue, PropertyDescriptor pkProperty, PropertyDescriptorCollection properties, SpecificField<T>[] specificFields)
+        internal static ParameterCommand GetInsertCommand<T>(object pkValue, PropertyDescriptor pkProperty, PropertyDescriptorCollection properties, SpecificField<T>[] specificFields, bool isPkIdentity)
         {
             if (specificFields == null && specificFields.Length <= 0)
                 throw new ArgumentNullException(nameof(specificFields));
@@ -193,7 +194,10 @@ namespace MicroORM.Core
 
             List<Tuple<string, object, Type>> parameters = new List<Tuple<string, object, Type>>();
 
-            StringBuilder builder = new StringBuilder($" INSERT INTO [{typeof(T).Name}] ([{pkProperty.Name}]");
+            StringBuilder builder = new StringBuilder($" INSERT INTO [{typeof(T).Name}] (");
+
+            if (!isPkIdentity)
+                builder.Append($"[{pkProperty.Name}]");
 
             for (int i = 0; i < specificFields.Length; i++)
             {
@@ -204,10 +208,16 @@ namespace MicroORM.Core
 
                 if (currentProperty == pkProperty) continue;
 
-                builder.Append($", [{currentProperty.Name}]");
+                if (i > 0 || !isPkIdentity)
+                    builder.Append(", ");
+
+                builder.Append($"[{currentProperty.Name}]");
             }
 
-            builder.Append($") VALUES ({getSqlValue(pkProperty, pkValue)}");
+            builder.Append($") VALUES (");
+
+            if (!isPkIdentity)
+                builder.Append(getSqlValue(pkProperty, pkValue));
 
             for (int i = 0; i < specificFields.Length; i++)
             {
@@ -221,12 +231,15 @@ namespace MicroORM.Core
                 string paramName = $"@p_{MicroORM.Internal.Utils.GetUniqueId()}";
                 parameters.Add(new Tuple<string, object, Type>(paramName, specificField.GetValue(), currentProperty.PropertyType));
 
-                builder.Append($", {paramName}");
+                if (i > 0 || !isPkIdentity)
+                    builder.Append(", ");
+
+                builder.Append($"{paramName}");
             }
 
             builder.Append(") ");
 
-            return new ParameterCommand(builder.ToString(), parameters );
+            return new ParameterCommand(builder.ToString(), parameters);
         }
 
         internal static string GetSelectHeaderCommand(string tableName, PropertyDescriptorCollection properties)
@@ -273,24 +286,7 @@ namespace MicroORM.Core
             return builder.ToString();
         }
 
-        internal static ParameterCommand GetInsertCommand<T>(T dbModel, PropertyDescriptorCollection properties)
-        {
-            if (dbModel == null)
-                throw new ArgumentNullException(nameof(dbModel));
-
-            if (properties == null || properties.Count <= 0)
-                return null;
-
-            StringBuilder builder = new StringBuilder(GetInsertHeaderCommand(typeof(T).Name, properties));
-
-            builder.Append(" VALUES ");
-
-            var parameters = GetInsertValuesCommand<T>(ref builder, dbModel, properties);
-
-            return new ParameterCommand( builder.ToString(), parameters);
-        }
-
-        internal static List<Tuple<string,object,Type>> GetInsertValuesCommand<T>(ref StringBuilder builder, T dbModel, PropertyDescriptorCollection properties)
+        internal static List<Tuple<string, object, Type>> GetInsertValuesCommand<T>(ref StringBuilder builder, T dbModel, PropertyDescriptorCollection properties)
         {
             if (dbModel == null)
                 throw new ArgumentNullException(nameof(dbModel));
@@ -331,7 +327,7 @@ namespace MicroORM.Core
 
             string command = $" DELETE FROM [{typeof(T).Name}] WHERE [{pkProperty.Name}] = {getSqlValue(pkProperty, pkValue)} ";
 
-            return new ParameterCommand( command, null);
+            return new ParameterCommand(command, null);
         }
 
         internal static string GetExistsByPkCommand<T>(PropertyDescriptor pkProperty)

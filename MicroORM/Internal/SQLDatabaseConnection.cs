@@ -115,7 +115,7 @@ namespace MicroORM.Internal
             }
         }
 
-        internal Microsoft.Data.SqlClient.SqlTransaction BeginTransaction()
+        public Microsoft.Data.SqlClient.SqlTransaction BeginTransaction()
         {
             if (Connection.State != ConnectionState.Open) Connection.Open();
 
@@ -143,7 +143,7 @@ namespace MicroORM.Internal
             }
         }
 
-        internal EmptyResult Commit()
+        public EmptyResult Commit()
         {
             try
             {
@@ -161,7 +161,7 @@ namespace MicroORM.Internal
             }
         }
 
-        internal EmptyResult Rollback()
+        public EmptyResult Rollback()
         {
             try
             {

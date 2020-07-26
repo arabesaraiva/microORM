@@ -21,10 +21,13 @@ namespace MicroORM.Commands
 
         protected Dictionary<object, Change<T>> _changes = new Dictionary<object, Change<T>>(100);
         PropertyDescriptorCollection _properties;
+        PropertyDescriptorCollection _insertProperties;
         PropertyDescriptor _pkProperty;
         private bool _saveLog = false;
         private PropertyDescriptor _logField = null;
         private int? _bulkMinCount = null;
+        bool _isPkIdentiy = false;
+
 
         internal ChangeCommand(string customConnectionString, SQLDatabaseConnection existentConnection, Factory factory) : base(customConnectionString, existentConnection, factory)
         {
@@ -35,6 +38,13 @@ namespace MicroORM.Commands
             _pkProperty = _properties.Cast<PropertyDescriptor>().FirstOrDefault(p => (p.Attributes?.Cast<Attribute>()?.Any(a => a.GetType().Equals(typeof(System.ComponentModel.DataAnnotations.KeyAttribute))) ?? false));
             if (_pkProperty == null)
                 throw new Exception("It is not possible to update a table without a defined primary key.");
+
+            _isPkIdentiy = _pkProperty.Attributes.OfType<System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedAttribute>()?.FirstOrDefault()?.DatabaseGeneratedOption == System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity;
+
+            if (_isPkIdentiy)
+                _insertProperties = new PropertyDescriptorCollection( _properties.Cast<PropertyDescriptor>().Except(new[] { _pkProperty }).ToArray());
+            else
+                _insertProperties = _properties;
 
             _saveLog = _factory._logger.IsModelSavingLog(typeof(T));
 
@@ -263,7 +273,7 @@ namespace MicroORM.Commands
                 if (insertList.Count > 0)
                 {
 
-                    string insertHeaderCommandText = SqlCommandBuilder.GetInsertHeaderCommand(typeof(T).Name, _properties) + " VALUES ";
+                    string insertHeaderCommandText = SqlCommandBuilder.GetInsertHeaderCommand(typeof(T).Name, _insertProperties) + " VALUES ";
 
                     int multipleInsertCommandCount = 0;
                     List<Tuple<string, object, Type>> parameters = new List<Tuple<string, object, Type>>(_MAX_PARAMETERS_COUNT);
@@ -273,13 +283,13 @@ namespace MicroORM.Commands
                     {
                         var change = insertList[i];
                         if (change.SpecificFields != null && change.SpecificFields.Length > 0)
-                            commands.Add(SqlCommandBuilder.GetInsertCommand(change.PKValue, _pkProperty, _properties, change.SpecificFields));
+                            commands.Add(SqlCommandBuilder.GetInsertCommand(change.PKValue, _pkProperty, _insertProperties, change.SpecificFields, _isPkIdentiy));
                         else
                         {
                             if (multipleInsertCommandCount > 0)
                                 multipleInsertCommandBuilder.Append(",");
 
-                            parameters.AddRange(SqlCommandBuilder.GetInsertValuesCommand<T>(ref multipleInsertCommandBuilder, change.Model, _properties));
+                            parameters.AddRange(SqlCommandBuilder.GetInsertValuesCommand<T>(ref multipleInsertCommandBuilder, change.Model, _insertProperties));
 
                             multipleInsertCommandCount++;
 
@@ -409,8 +419,8 @@ namespace MicroORM.Commands
 
                     //insert
                     commandTextBuilder.AppendLine("--INSERTS:");
-                    commandTextBuilder.AppendLine(SqlCommandBuilder.GetInsertHeaderCommand(typeof(T).Name, _properties));
-                    commandTextBuilder.AppendLine(SqlCommandBuilder.GetSelectHeaderCommand(changesModelTempTableName, _properties) + " AS M ");
+                    commandTextBuilder.AppendLine(SqlCommandBuilder.GetInsertHeaderCommand(typeof(T).Name, _insertProperties));
+                    commandTextBuilder.AppendLine(SqlCommandBuilder.GetSelectHeaderCommand(changesModelTempTableName, _insertProperties) + " AS M ");
                     commandTextBuilder.AppendLine($" INNER JOIN [{changesTypeTempTableName}] AS C ON M.[{_pkProperty.Name}] = C.PK ");
                     commandTextBuilder.AppendLine($" WHERE C.ChangeType = 'I' ");
 

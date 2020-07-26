@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MicroORM.Samples.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.AspNetCore.SignalR;
 
 namespace MicroORM.Samples.Controllers
@@ -238,7 +240,7 @@ namespace MicroORM.Samples.Controllers
 
         #endregion
 
-        #region Exists, Count
+        #region Exists & Count
 
         /// <summary>
         /// Check if a record exists easily and with good performance
@@ -322,7 +324,169 @@ namespace MicroORM.Samples.Controllers
 
         #endregion
 
+        #region Inserts
 
+        /// <summary>
+        /// Insert a record setting all the model's property values
+        /// </summary>
+        [HttpGet("Insert")]
+        public JsonResult Insert([FromQuery()]string name = "", DateTime? lastBuyDate = null, bool isActive = true)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new JsonResult("Set the new name!");
+
+            var model = new Client() { IsActive = isActive, LastBuyDate = lastBuyDate, Name = name };
+
+            var changeResult = microOrm.Change<Client>().Insert(model).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        /// <summary>
+        /// Insert a record setting only specific fields
+        /// </summary>
+        [HttpGet("InsertSpecificField")]
+        public JsonResult InsertSpecificField(int id, [FromQuery()]string name = "")
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new JsonResult("Set the new name!");
+
+            var changeCommand = microOrm.Change<Client>();
+
+            var changeResult = changeCommand.InsertSpecificFields(id, changeCommand.Set(c => c.Name, name)).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// Delete a record by passing it's model as a parameter
+        /// </summary>
+        [HttpGet("DeleteModel/{id}")]
+        public JsonResult DeleteModel(int id)
+        {
+            var selectResult = microOrm.Select<Client>().Where(c => c.ID, id).Execute();
+            if (!selectResult.Success)
+                return new JsonResult(selectResult);
+
+            var model = selectResult.DataList?.FirstOrDefault();
+
+            if (model == null)
+                return new JsonResult("ID not found!");
+
+            var changeResult = microOrm.Change<Client>().Delete(model).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        /// <summary>
+        /// Delete a record filtering by the PK, without needing to have the model first
+        /// </summary>
+        [HttpGet("DeleteById/{id}")]
+        public JsonResult DeleteById(int id)
+        {
+            var changeResult = microOrm.Change<Client>().DeleteByPk(id).Execute();
+
+            return new JsonResult(changeResult);
+        }
+
+        /// <summary>
+        /// Delete one or many records with a condition
+        /// </summary>
+        [HttpGet("DeleteName/{name}")]
+        public JsonResult DeleteName(string name)
+        {
+            var changeResult = microOrm.DeleteWhere<Client>().Where(c => c.Name, name).Execute();
+            return new JsonResult(changeResult);
+        }
+
+        #endregion
+
+        #region Others
+
+        /// <summary>
+        /// Execute any kind of SQL command
+        /// </summary>
+        [HttpGet("DuplicateTable")]
+        public JsonResult DuplicateTable()
+        {
+            var result = microOrm.PrepareSql("INSERT INTO Client (Name, LastBuyDate, IsActive) SELECT Name, LastBuyDate, IsActive FROM Client").ExecuteCommand();
+            return new JsonResult(result);
+        }
+
+        /// <summary>
+        /// Share a connection and a transaction between the commands
+        /// </summary>
+        [HttpGet("CommandsWithTransaction")]
+        public JsonResult CommandsWithTransaction([FromQuery()] bool throwException = false)
+        {
+            using (var conn = microOrm.GetNewConnection())
+            {
+                conn.BeginTransaction();
+
+                var selectResult = microOrm.Select<Client>(existentConnection: conn).Where(c => c.IsActive, true).Execute();
+                if (!selectResult.Success)
+                    return new JsonResult(selectResult);
+
+                var selectedRecords = selectResult.DataList;
+
+                var deleteResult = microOrm.DeleteWhere<Client>(existentConnection: conn).Where(c => c.IsActive, true).Execute();
+                if (!deleteResult.Success)
+                    return new JsonResult(deleteResult);
+
+                selectedRecords.ForEach(c => c.Name = c.Name + "_");
+
+                if (throwException)
+                    throw new Exception("Unexpected exception that Rollbacks the transaction!");
+
+                var insertResult = microOrm.Change<Client>(existentConnection: conn).Insert(selectedRecords.ToArray()).Execute();
+                if (!insertResult.Success)
+                    return new JsonResult(insertResult);
+
+                var commitResult = conn.Commit();
+                return new JsonResult(commitResult);
+            }
+        }
+
+        private class filterNamesTempTable
+        {
+            public string Name { get; set; }
+        }
+
+        /// <summary>
+        /// Create and work with Temporary Tables
+        /// </summary>
+        [HttpGet("SelectWithTempTable")]
+        public JsonResult SelectWithTempTable(string tableName = "")
+        {
+            using (var conn = microOrm.GetNewConnection())
+            {
+                using (var tempTable = microOrm.TemporaryTable<filterNamesTempTable>(existentConnection: conn).SetTableName(tableName))
+                {
+                    var tempTableResult = tempTable.Create();
+                    if (!tempTableResult.Success)
+                        return new JsonResult(tempTableResult);
+
+                    tempTableResult= tempTable.BulkInsert(new filterNamesTempTable() { Name = "SAP" }, new filterNamesTempTable() { Name = "Facebook" });
+                    if (!tempTableResult.Success)
+                        return new JsonResult(tempTableResult);
+
+                    string query = $"SELECT c.* FROM Client c WHERE EXISTS (SELECT TOP 1 1 FROM [{tempTableResult.TableName}] t WHERE t.Name = c.Name) ";
+                    var selectResult = microOrm.PrepareSql(query, existentConnection: conn).ExecuteQuery<Client>(true);
+                    return new JsonResult(selectResult);
+
+                    //Optionally executes the Drop command, because the Dispose() already calls it
+                    //tempTableResult = tempTable.Drop();
+                    //if (!tempTableResult.Success)
+                    //    return new JsonResult(tempTableResult);
+                }
+            }
+        }
+
+        #endregion
 
 
     }

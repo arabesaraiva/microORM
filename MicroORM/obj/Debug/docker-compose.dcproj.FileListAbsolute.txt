@@ -15,3 +15,9 @@ C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.AspNetCore.Mvc.Newton
 C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Newtonsoft.Json.dll
 C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
 C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Newtonsoft.Json.Bson.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.OpenApi.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Source\Workspaces\MicroORM\MicroORM\bin\Debug\MicroORM.Samples.xml

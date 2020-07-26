@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MicroORM.Samples</name>
+    </assembly>
+    <members>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Get">
+            <summary>
+            Simple select with all table fields using the table model
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetIdAndNames">
+            <summary>
+            Select only fields defined in the <see cref="T:MicroORM.Samples.Controllers.SimpleCrudController.clientIdAndNameModel"/> from the table
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetNames">
+            <summary>
+            Select only fields defined in the anonymous type, without needing to create a model for a specif select case
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetSummary">
+            <summary>
+            Use any kind of select command, from simple to complex queries and get the results as a pre-defined model
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetLastId">
+            <summary>
+            Use any kind of select command, from simple to complex queries and get the results as a <see cref="T:Microsoft.Data.SqlClient.SqlDataReader"/>
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetOrdered">
+            <summary>
+            Use any kind of select command, from simple to complex queries and get the results as a <see cref="T:System.Data.DataTable"/>
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetTop1">
+            <summary>
+            Select with Top, optionally ordering by some field(s)
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetPage(System.Int32)">
+            <summary>
+            Select with Top, optionally ordering by some field(s)
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Get(System.Int32)">
+            <summary>
+            Filter by a specific value in a field
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetBuyedLast10Years">
+            <summary>
+            Filter by a range of date or any other value
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetFirstLetterM">
+            <summary>
+            Filter using the 'like' operator with wildcards
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetNotActive">
+            <summary>
+            Filter with the 'not' operator
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetActiveAndInactive">
+            <summary>
+            Filter with the 'IN' operator
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetBuyedLast10YearsAndActive">
+            <summary>
+            Filter by more than one condition
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.GetSummaryByYear(System.Int32)">
+            <summary>
+            Filter complex queries with parameters
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Exists(System.Int32)">
+            <summary>
+            Check if a record exists easily and with good performance
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Count">
+            <summary>
+            Count the records with any conditions
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Update(System.Int32,System.String)">
+            <summary>
+            Update a record setting all the model's property values
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.UpdateSpecificField(System.Int32,System.String)">
+            <summary>
+            Update a specific field filtering by the ID, without needing to select the model first
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.UpdateName(System.String,System.String)">
+            <summary>
+            Update a specific field with a condition, without needing to select the model first
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.Insert(System.String,System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Insert a record setting all the model's property values
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.InsertSpecificField(System.Int32,System.String)">
+            <summary>
+            Insert a record setting only specific fields
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.DeleteModel(System.Int32)">
+            <summary>
+            Delete a record by passing it's model as a parameter
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.DeleteById(System.Int32)">
+            <summary>
+            Delete a record filtering by the PK, without needing to have the model first
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.DeleteName(System.String)">
+            <summary>
+            Delete one or many records with a condition
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.DuplicateTable">
+            <summary>
+            Execute any kind of SQL command
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.CommandsWithTransaction(System.Boolean)">
+            <summary>
+            Share a connection and a transaction between the commands
+            </summary>
+        </member>
+        <member name="M:MicroORM.Samples.Controllers.SimpleCrudController.SelectWithTempTable(System.String)">
+            <summary>
+            Create and work with Temporary Tables
+            </summary>
+        </member>
+    </members>
+</doc>
